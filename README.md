@@ -1,11 +1,11 @@
 # VirtualPet
 
-Universidad Panamericana Campus México
-Materia: LM0093 – Programación Orientada a Objetos
-Proyecto: Segundo Parcial
-Profesor: Mtro. Giancarlo Benítez V.
-Alumnos: Enrique Ulises Báez Gómez Tagle + Mauricio Iván Ascencio Martínez
-Facultad de Ingeniería
+- Universidad Panamericana Campus México
+- Materia: LM0093 – Programación Orientada a Objetos
+- Proyecto: Segundo Parcial
+- Profesor: Mtro. Giancarlo Benítez V.
+- Alumnos: Enrique Ulises Báez Gómez Tagle + Mauricio Iván Ascencio Martínez
+- Facultad de Ingeniería
 
 2do Proyecto Parcial
 Mascota Virtual (Tipo – A v1.2)
@@ -57,7 +57,7 @@ tercio.
 
 # Entregables:
 
-- Todos los archivos *.py deberán ser entregados en una carpeta comprimida .zip con el nombre: o <nombre>_<apellido>_MascotaP2.zip
+- Todos los archivos *.py deberán ser entregados en una carpeta comprimida .zip con el nombre: "<nombre>_<apellido>_MascotaP2.zip"
 -  No se aceptan entregas fuera del plazo establecido.
 -  Se podrá hacer una revisión y resolución de dudas el día jueves 31 de marzo durante la clase
 - La entrega será en Moodle el día lunes 4 de abril
