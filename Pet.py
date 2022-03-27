@@ -43,7 +43,7 @@ class Pet:
 
     @property
     def fun(self):
-        return self._fun
+        return self.__fun
 
     @fun.setter
     def fun(self, value):
@@ -53,6 +53,16 @@ class Pet:
             self.__fun = 100
         else:
             self.__fun = value
+
+    def vet(self):
+        self.health += (self.health * 1/2)
+        self.fun -= (self.fun * 1/3)
+
+    def feed(self):
+        self.hunger -= 5
+
+    def play(self):
+        self.fun += 5
 
 
 class Horse(Pet):
