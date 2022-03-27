@@ -15,6 +15,10 @@ class Pet:
         self.__fun = fun
 
     @property
+    def name(self):
+        return self._name
+
+    @property
     def health(self):
         return self.__health
 
@@ -53,6 +57,32 @@ class Pet:
         else:
             self.__fun = value
 
+    @property
+    def lost_fun(self):
+        return self.__lost_fun
+
+    @lost_fun.setter
+    def lost_fun(self, value):
+        if value < 0:
+            self.__lost_fun = 0
+        elif value > 100:
+            self.__lost_fun = 100
+        else:
+            self.__lost_fun = value
+
+    @property
+    def gain_hunger(self):
+        return self.__gain_hunger
+
+    @gain_hunger.setter
+    def gain_hunger(self, value):
+        if value < 0:
+            self.__gain_hunger = 0
+        elif value > 100:
+            self.__gain_hunger = 100
+        else:
+            self.__gain_hunger = value
+
     def vet(self):
         self.health += (self.health * 1 / 2)
         self.fun -= (self.fun * 1 / 3)
@@ -62,6 +92,10 @@ class Pet:
 
     def play(self):
         self.fun += 5
+
+    @name.setter
+    def name(self, value):
+        self._name = value
 
 
 class Horse(Pet):
