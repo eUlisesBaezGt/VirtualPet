@@ -8,9 +8,8 @@ class Pet:
     __lost_fun = 0
     __gain_hunger = 0
 
-    def __init__(self, name, age, type, health, hunger, fun):
+    def __init__(self, name, health, hunger, fun):
         self._name = name
-        self.type = type
         self.__health = health
         self.__hunger = hunger
         self.__fun = fun
@@ -55,8 +54,8 @@ class Pet:
             self.__fun = value
 
     def vet(self):
-        self.health += (self.health * 1/2)
-        self.fun -= (self.fun * 1/3)
+        self.health += (self.health * 1 / 2)
+        self.fun -= (self.fun * 1 / 3)
 
     def feed(self):
         self.hunger -= 5
@@ -66,15 +65,18 @@ class Pet:
 
 
 class Horse(Pet):
-    def __init__(self, name, age, type, health, hunger, fun):
-        super().__init__(name, age, type, health, hunger, fun)
+    def __init__(self, name, health, hunger, fun):
+        super().__init__(name, health, hunger, fun)
+        self.type = "Horse"
 
 
 class Panther(Pet):
-    def __init__(self, name, age, type, health, hunger, fun):
-        super().__init__(name, age, type, health, hunger, fun)
+    def __init__(self, name, health, hunger, fun):
+        super().__init__(name, health, hunger, fun)
+        self.type = "Panther"
 
 
 class Eagle(Pet):
-    def __init__(self, name, age, type, health, hunger, fun):
-        super().__init__(name, age, type, health, hunger, fun)
+    def __init__(self, name, health, hunger, fun):
+        super().__init__(name, health, hunger, fun)
+        self.type = "Eagle"
