@@ -1,5 +1,4 @@
-from Pet import *
-from Aux import Aux
+# from not changing the good one
 
 
 def stop_threads():
@@ -50,6 +49,7 @@ def new_game():
     hatch()
     game()
 
+
 def hatch():
     global pet
     pet = Pet()
@@ -59,6 +59,7 @@ def game():
     global pet
     global saved
     saved = False
+
 
 def save():
     global pet
