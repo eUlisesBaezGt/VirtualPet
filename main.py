@@ -26,6 +26,8 @@ def menu():
     
     5. Exit # Salir del juego # Salir terminará la ejecución del programa, así como también todos los hilos creados de la mascota.
 
+
+6 . 
     """)
 
 
