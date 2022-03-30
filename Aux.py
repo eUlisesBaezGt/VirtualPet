@@ -1,8 +1,12 @@
+import save as save
+
 from Game import game
-from Pet import Pet
+from Pet import *
+import threading as th
 
 from Colors import *
 import json
+from random import randint
 
 slot1 = {
     "name": "",
@@ -64,8 +68,68 @@ slot6 = {
     "gain_hunger": 0
 }
 
+import time
+
+pet = None
+t = 0
+
 
 class Aux:
+
+    def __init__(self, pet):
+        self.pet = pet
+
+    @staticmethod
+    def print_hatch(t):
+        print(Colors.Bold + Colors.Green + "Your egg will hatch in {} seconds!".format(t) + Colors.ResetAll)
+        time.sleep(t)
+
+    @staticmethod
+    def hatch():
+        global pet, t
+        t = randint(5, 10)
+        print("\n")
+        print(
+            Colors.Bold + Colors.Underlined + Colors.Yellow +
+            "----- ANIMALS ----- \n\n" + Colors.ResetAll)
+        print("""
+                Horse (EASY MODE)
+                Eagle (MEDIUM MODE) 🦅
+                Panther (HARD MODE)
+    " 🦎 🦔 🦨 🐁 🐇  🐕‍ 🐓 🦞 🐊 🦈 🐍 🦧 🦂 🐶 🐦 🐟\n\n" # fix
+    """)
+
+        animal = randint(1, 3)
+
+        if animal == 1:
+            Aux.print_hatch(t)
+            print(Colors.Bold + Colors.Green + "Your horse is ready!" + Colors.ResetAll)
+            name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
+            health = randint(75, 100)
+            hunger = randint(0, 25)
+            fun = randint(75, 100)
+            pet = Horse(name, health, hunger, fun, t)
+
+        elif animal == 2:
+            Aux.print_hatch(t)
+            print(Colors.Bold + Colors.Green + "Your eagle is ready!" + Colors.ResetAll)
+            name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
+            health = randint(50, 75)
+            hunger = randint(25, 50)
+            fun = randint(50, 75)
+            pet = Horse(name, health, hunger, fun, t)
+
+        elif animal == 3:
+            Aux.print_hatch(t)
+            print(Colors.Bold + Colors.Green + "Your panther is ready!" + Colors.ResetAll)
+            name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
+            health = randint(25, 50)
+            hunger = randint(50, 75)
+            fun = randint(25, 50)
+            pet = Horse(name, health, hunger, fun, t)
+        Aux.save(pet)
+        return pet
+
     @staticmethod
     def get_slot(slot):
         if slot == 1:
@@ -96,6 +160,7 @@ class Aux:
             slot1["fun"] = pet.fun
             slot1["lost_fun"] = pet.lost_fun
             slot1["gain_hunger"] = pet.gain_hunger
+            slot1["time"] = pet.time
 
             with open('slot1.json', 'w') as file:
                 json.dump(slot1, file)
@@ -109,6 +174,7 @@ class Aux:
             slot2["fun"] = pet.fun
             slot2["lost_fun"] = pet.lost_fun
             slot2["gain_hunger"] = pet.gain_hunger
+            slot1["time"] = pet.time
 
             with open('slot2.json', 'w') as file:
                 json.dump(slot2, file)
@@ -122,6 +188,7 @@ class Aux:
             slot3["fun"] = pet.fun
             slot3["lost_fun"] = pet.lost_fun
             slot3["gain_hunger"] = pet.gain_hunger
+            slot1["time"] = pet.time
 
             with open('slot3.json', 'w') as file:
                 json.dump(slot3, file)
@@ -135,6 +202,7 @@ class Aux:
             slot4["fun"] = pet.fun
             slot4["lost_fun"] = pet.lost_fun
             slot4["gain_hunger"] = pet.gain_hunger
+            slot1["time"] = pet.time
 
             with open('slot4.json', 'w') as file:
                 json.dump(slot4, file)
@@ -148,6 +216,7 @@ class Aux:
             slot5["fun"] = pet.fun
             slot5["lost_fun"] = pet.lost_fun
             slot5["gain_hunger"] = pet.gain_hunger
+            slot1["time"] = pet.time
 
             with open('slot5.json', 'w') as file:
                 json.dump(slot5, file)
@@ -161,6 +230,7 @@ class Aux:
             slot6["fun"] = pet.fun
             slot6["lost_fun"] = pet.lost_fun
             slot6["gain_hunger"] = pet.gain_hunger
+            slot1["time"] = pet.time
 
             with open('slot6.json', 'w') as file:
                 json.dump(slot6, file)
@@ -220,6 +290,8 @@ class Aux:
 
         elif option == "Q":
             print("Exit")
+            stop_threads()
+            save()
             exit()
 
         else:
@@ -228,7 +300,8 @@ class Aux:
 
     @staticmethod
     def new_game():
-        pet = Pet.hatch()
+        Aux.save()
+        pet = Aux.hatch()
         game(pet)
 
     @staticmethod
@@ -240,7 +313,7 @@ class Aux:
     def load_game():
         global pet, slot1, slot2, slot3, slot4, slot5, slot6
         print(Colors.Bold + Colors.Magenta)
-        r = int(input("Slot to save? (1-6): "))
+        r = int(input("Slot to load? (1-6): "))
         print(Colors.ResetAll)
 
         if r == 1:
@@ -248,7 +321,7 @@ class Aux:
                 slot1 = json.load(file)
                 pet = Pet(slot1["name"], slot1["type"], slot1["hunger"], slot1["health"], slot1["fun"],
                           slot1["lost_fun"],
-                          slot1["gain_hunger"])
+                          slot1["gain_hunger"], slot1["time"])
                 game(pet)
 
         elif r == 2:

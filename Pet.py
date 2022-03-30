@@ -1,18 +1,31 @@
+import threading as th
+
+mk_hungryth = None
+mk_funth = None
+
+
+def stop_threads():
+    mk_hungryth.cancel()
+    mk_funth.cancel()
+
+
 class Pet:
     _name = ""
     type = ""
     __health = 0
     __hunger = 0
     __fun = 0
+    time = 0
 
     __lost_fun = 0
     __gain_hunger = 0
 
-    def __init__(self, name, health, hunger, fun):
+    def __init__(self, name, health, hunger, fun, time):
         self._name = name
         self.__health = health
         self.__hunger = hunger
         self.__fun = fun
+        self.time = time
 
     @property
     def name(self):
@@ -97,23 +110,56 @@ class Pet:
     def play(self):
         self.fun += 5
 
-    def hatch(self):
-        pass
-
 
 class Horse(Pet):
-    def __init__(self, name, health, hunger, fun):
-        super().__init__(name, health, hunger, fun)
+    def __init__(self, name, health, hunger, fun, time):
+        super().__init__(name, health, hunger, fun, time)
         self.type = "Horse"
 
+    def mk_hungry(self):
+        mk_hungryth = th.Timer(1, self.mk_hungry)
+        self.hunger += 1
+        self.health -= (self.health - 1 / 8 * self.hunger)
+        mk_hungryth.start()
 
-class Panther(Pet):
-    def __init__(self, name, health, hunger, fun):
-        super().__init__(name, health, hunger, fun)
-        self.type = "Panther"
+    def mk_fun(self):
+        mk_funth = th.Timer(1, self.mk_fun)
+        self.fun -= 1
+        self.health -= (1 / 8 * (100 - self.fun))
+        mk_funth.start()
 
 
 class Eagle(Pet):
-    def __init__(self, name, health, hunger, fun):
-        super().__init__(name, health, hunger, fun)
+    def __init__(self, name, health, hunger, fun, time):
+        super().__init__(name, health, hunger, fun, time)
         self.type = "Eagle"
+
+    def mk_hungry(self):
+        mk_hungryth = th.Timer(1, self.mk_hungry)
+        self.hunger += 3
+        self.health -= (self.health - 1 / 6 * self.hunger)
+        mk_hungryth.start()
+
+    def mk_fun(self):
+        mk_funth = th.Timer(1, self.mk_fun)
+        self.fun -= 3
+        self.health -= (1 / 6 * (100 - self.fun))
+        mk_funth.start()
+
+
+class Panther(Pet):
+    def __init__(self, name, health, hunger, fun, time):
+        super().__init__(name, health, hunger, fun, time)
+        self.type = "Panther"
+
+    def mk_hungry(self):
+        mk_hungryth = th.Timer(1, self.mk_hungry)
+        self.hunger += 5
+        self.health -= (self.health - 1 / 4 * self.hunger)
+        mk_hungryth.start()
+
+    def mk_fun(self):
+        mk_funth = th.Timer(1, self.mk_fun)
+        self.fun -= 5
+        self.health -= (1 / 4 * (100 - self.fun))
+        mk_funth.start()
