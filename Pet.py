@@ -97,6 +97,9 @@ class Pet:
     def play(self):
         self.fun += 5
 
+    def hatch(self):
+        pass
+
 
 class Horse(Pet):
     def __init__(self, name, health, hunger, fun):
