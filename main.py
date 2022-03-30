@@ -1,4 +1,4 @@
-from Pet import *
+# from Pet import *
 from Aux import *
 
 if __name__ == "__main__":

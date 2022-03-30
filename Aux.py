@@ -1,4 +1,4 @@
-from Game import Game
+from Game import game
 from Pet import Pet
 
 from Colors import *
@@ -182,15 +182,15 @@ class Aux:
             + Colors.ResetAll)
 
         print("""
-        N) New Game # Juego nuevo debe crear el huevo e incubarlo, luego iniciará todos los hilos necesarios.
+        N) New game # Juego nuevo debe crear el huevo e incubarlo, luego iniciará todos los hilos necesarios.
 
-        C) Continue Game  # Continuar reiniciará los hilos de la mascota (no se puede continuar si no existe mascota)
+        C) Continue game  # Continuar reiniciará los hilos de la mascota (no se puede continuar si no existe mascota)
 
-        L) Load Game # Cargar juego: leerá los datos de la mascota desde un archivo y automáticamente dará inicio 
+        L) Load game # Cargar juego: leerá los datos de la mascota desde un archivo y automáticamente dará inicio 
         a “continuar” el juego. En caso de que ya exista una mascota en juego, lanzar advertencia
     # que perderá los cambios no guardados y si desea continuar.
 
-        S) Save Game #  Guardar juego: escribe todos los datos necesarios, para el correcto funcionamiento del
+        S) Save game #  Guardar juego: escribe todos los datos necesarios, para el correcto funcionamiento del
     # juego, en un archivo.
 
         Q) Exit # Salir del juego # Salir terminará la ejecución del programa, así como también todos los hilos 
@@ -229,12 +229,12 @@ class Aux:
     @staticmethod
     def new_game():
         pet = Pet.hatch()
-        Game(pet)
+        game(pet)
 
     @staticmethod
     def continue_game():
         global pet
-        Game(pet)
+        game(pet)
 
     @staticmethod
     def load_game():
@@ -249,7 +249,7 @@ class Aux:
                 pet = Pet(slot1["name"], slot1["type"], slot1["hunger"], slot1["health"], slot1["fun"],
                           slot1["lost_fun"],
                           slot1["gain_hunger"])
-                Game(pet)
+                game(pet)
 
         elif r == 2:
             with open('slot2.json', 'r') as file:
@@ -257,7 +257,7 @@ class Aux:
                 pet = Pet(slot2["name"], slot2["type"], slot2["hunger"], slot2["health"], slot2["fun"],
                           slot2["lost_fun"],
                           slot2["gain_hunger"])
-                Game(pet)
+                game(pet)
 
         elif r == 3:
             with open('slot3.json', 'r') as file:
@@ -265,7 +265,7 @@ class Aux:
                 pet = Pet(slot3["name"], slot3["type"], slot3["hunger"], slot3["health"], slot3["fun"],
                           slot3["lost_fun"],
                           slot3["gain_hunger"])
-                Game(pet)
+                game(pet)
 
         elif r == 4:
             with open('slot4.json', 'r') as file:
@@ -273,7 +273,7 @@ class Aux:
                 pet = Pet(slot4["name"], slot4["type"], slot4["hunger"], slot4["health"], slot4["fun"],
                           slot4["lost_fun"],
                           slot4["gain_hunger"])
-                Game(pet)
+                game(pet)
 
         elif r == 5:
             with open('slot5.json', 'r') as file:
@@ -281,7 +281,7 @@ class Aux:
                 pet = Pet(slot5["name"], slot5["type"], slot5["hunger"], slot5["health"], slot5["fun"],
                           slot5["lost_fun"],
                           slot5["gain_hunger"])
-                Game(pet)
+                game(pet)
 
         elif r == 6:
             with open('slot6.json', 'r') as file:
@@ -289,11 +289,12 @@ class Aux:
                 pet = Pet(slot6["name"], slot6["type"], slot6["hunger"], slot6["health"], slot6["fun"],
                           slot6["lost_fun"],
                           slot6["gain_hunger"])
-                Game(pet)
+                game(pet)
 
         else:
             print(
-                Colors.Bold + Colors.Underlined + Colors.Red + "Invalid slot number, please try again" + Colors.ResetAll)
+                Colors.Bold + Colors.Underlined + Colors.Red + "Invalid slot number, please try again"
+                + Colors.ResetAll)
             Aux.load_game()
 
     @staticmethod
