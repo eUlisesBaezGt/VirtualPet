@@ -1,8 +1,6 @@
-import save as save
-
 from Game import game
 from Pet import *
-import threading as th
+import time
 
 from Colors import *
 import json
@@ -68,21 +66,19 @@ slot6 = {
     "gain_hunger": 0
 }
 
-import time
-
-pet = None
+pet = Pet("", "", 0, 0, 0, 0, 0, 0)
 t = 0
 
 
 class Aux:
 
-    def __init__(self, pet):
-        self.pet = pet
+    def __init__(self, n_p):
+        self.pet = n_p
 
     @staticmethod
-    def print_hatch(t):
+    def print_hatch(tim):
         print(Colors.Bold + Colors.Green + "Your egg will hatch in {} seconds!".format(t) + Colors.ResetAll)
-        time.sleep(t)
+        time.sleep(tim)
 
     @staticmethod
     def hatch():
@@ -91,13 +87,12 @@ class Aux:
         print("\n")
         print(
             Colors.Bold + Colors.Underlined + Colors.Yellow +
-            "----- ANIMALS ----- \n\n" + Colors.ResetAll)
+            "----- ANIMALS -----" + Colors.ResetAll)
         print("""
-                Horse (EASY MODE)
-                Eagle (MEDIUM MODE) 🦅
-                Panther (HARD MODE)
-    " 🦎 🦔 🦨 🐁 🐇  🐕‍ 🐓 🦞 🐊 🦈 🐍 🦧 🦂 🐶 🐦 🐟\n\n" # fix
-    """)
+        Horse (EASY MODE) 🐴
+        Eagle (MEDIUM MODE) 🦅
+        Panther (HARD MODE) 🐯
+        """)
 
         animal = randint(1, 3)
 
@@ -105,29 +100,41 @@ class Aux:
             Aux.print_hatch(t)
             print(Colors.Bold + Colors.Green + "Your horse is ready!" + Colors.ResetAll)
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
-            health = randint(75, 100)
-            hunger = randint(0, 25)
-            fun = randint(75, 100)
-            pet = Horse(name, health, hunger, fun, t)
+            typ = ""
+            hunger = randint(50, 75)
+            health = randint(25, 50)
+            fun = randint(25, 50)
+            lost_fun = 0
+            gain_hunger = 0
+            tem = t
+            pet = Horse(name, typ, hunger, health, fun, lost_fun, gain_hunger, tem)
 
         elif animal == 2:
             Aux.print_hatch(t)
             print(Colors.Bold + Colors.Green + "Your eagle is ready!" + Colors.ResetAll)
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
-            health = randint(50, 75)
-            hunger = randint(25, 50)
-            fun = randint(50, 75)
-            pet = Horse(name, health, hunger, fun, t)
+            typ = ""
+            hunger = randint(50, 75)
+            health = randint(25, 50)
+            fun = randint(25, 50)
+            lost_fun = 0
+            gain_hunger = 0
+            tem = t
+            pet = Eagle(name, typ, hunger, health, fun, lost_fun, gain_hunger, tem)
 
         elif animal == 3:
             Aux.print_hatch(t)
             print(Colors.Bold + Colors.Green + "Your panther is ready!" + Colors.ResetAll)
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
-            health = randint(25, 50)
+            typ = ""
             hunger = randint(50, 75)
+            health = randint(25, 50)
             fun = randint(25, 50)
-            pet = Horse(name, health, hunger, fun, t)
-        Aux.save(pet)
+            lost_fun = 0
+            gain_hunger = 0
+            tem = t
+            pet = Panther(name, typ, hunger, health, fun, lost_fun, gain_hunger, tem)
+
         return pet
 
     @staticmethod
@@ -252,20 +259,16 @@ class Aux:
             + Colors.ResetAll)
 
         print("""
-        N) New game # Juego nuevo debe crear el huevo e incubarlo, luego iniciará todos los hilos necesarios.
+        N) New game
 
-        C) Continue game  # Continuar reiniciará los hilos de la mascota (no se puede continuar si no existe mascota)
+        C) Continue game 
 
-        L) Load game # Cargar juego: leerá los datos de la mascota desde un archivo y automáticamente dará inicio 
-        a “continuar” el juego. En caso de que ya exista una mascota en juego, lanzar advertencia
-    # que perderá los cambios no guardados y si desea continuar.
+        L) Load game
 
-        S) Save game #  Guardar juego: escribe todos los datos necesarios, para el correcto funcionamiento del
-    # juego, en un archivo.
+        S) Save game
 
-        Q) Exit # Salir del juego # Salir terminará la ejecución del programa, así como también todos los hilos 
-        creados de la mascota.
-
+        Q) Exit
+        
         """)
 
         print(Colors.Bold + Colors.Underlined + Colors.Green)
@@ -291,7 +294,7 @@ class Aux:
         elif option == "Q":
             print("Exit")
             stop_threads()
-            save()
+            Aux.save()
             exit()
 
         else:
@@ -301,8 +304,8 @@ class Aux:
     @staticmethod
     def new_game():
         Aux.save()
-        pet = Aux.hatch()
-        game(pet)
+        g_p = Aux.hatch()
+        game(g_p)
 
     @staticmethod
     def continue_game():
@@ -329,7 +332,7 @@ class Aux:
                 slot2 = json.load(file)
                 pet = Pet(slot2["name"], slot2["type"], slot2["hunger"], slot2["health"], slot2["fun"],
                           slot2["lost_fun"],
-                          slot2["gain_hunger"])
+                          slot2["gain_hunger"], slot2["time"])
                 game(pet)
 
         elif r == 3:
@@ -337,7 +340,7 @@ class Aux:
                 slot3 = json.load(file)
                 pet = Pet(slot3["name"], slot3["type"], slot3["hunger"], slot3["health"], slot3["fun"],
                           slot3["lost_fun"],
-                          slot3["gain_hunger"])
+                          slot3["gain_hunger"], slot3["time"])
                 game(pet)
 
         elif r == 4:
@@ -345,7 +348,7 @@ class Aux:
                 slot4 = json.load(file)
                 pet = Pet(slot4["name"], slot4["type"], slot4["hunger"], slot4["health"], slot4["fun"],
                           slot4["lost_fun"],
-                          slot4["gain_hunger"])
+                          slot4["gain_hunger"], slot4["time"])
                 game(pet)
 
         elif r == 5:
@@ -353,7 +356,7 @@ class Aux:
                 slot5 = json.load(file)
                 pet = Pet(slot5["name"], slot5["type"], slot5["hunger"], slot5["health"], slot5["fun"],
                           slot5["lost_fun"],
-                          slot5["gain_hunger"])
+                          slot5["gain_hunger"], slot5["time"])
                 game(pet)
 
         elif r == 6:
@@ -361,7 +364,7 @@ class Aux:
                 slot6 = json.load(file)
                 pet = Pet(slot6["name"], slot6["type"], slot6["hunger"], slot6["health"], slot6["fun"],
                           slot6["lost_fun"],
-                          slot6["gain_hunger"])
+                          slot6["gain_hunger"], slot6["time"])
                 game(pet)
 
         else:

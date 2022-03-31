@@ -5,8 +5,9 @@ mk_funth = None
 
 
 def stop_threads():
-    mk_hungryth.cancel()
-    mk_funth.cancel()
+    if mk_hungryth is not None and mk_funth is not None:
+        mk_hungryth.stop()
+        mk_funth.stop()
 
 
 class Pet:
@@ -20,11 +21,14 @@ class Pet:
     __lost_fun = 0
     __gain_hunger = 0
 
-    def __init__(self, name, health, hunger, fun, time):
+    def __init__(self, name, typ, hunger, health, fun, lost_fun, gain_hunger, time):
         self._name = name
-        self.__health = health
-        self.__hunger = hunger
-        self.__fun = fun
+        self.type = typ
+        self.hunger = hunger
+        self.health = health
+        self.fun = fun
+        self.__lost_fun = lost_fun
+        self.__gain_hunger = gain_hunger
         self.time = time
 
     @property
@@ -112,8 +116,8 @@ class Pet:
 
 
 class Horse(Pet):
-    def __init__(self, name, health, hunger, fun, time):
-        super().__init__(name, health, hunger, fun, time)
+    def __init__(self, name, typ, hunger, health, fun, lost_fun, gain_hunger, time):
+        super().__init__(name, typ, hunger, health, fun, lost_fun, gain_hunger, time)
         self.type = "Horse"
 
     def mk_hungry(self):
@@ -130,8 +134,9 @@ class Horse(Pet):
 
 
 class Eagle(Pet):
-    def __init__(self, name, health, hunger, fun, time):
-        super().__init__(name, health, hunger, fun, time)
+
+    def __init__(self, name, typ, hunger, health, fun, lost_fun, gain_hunger, time):
+        super().__init__(name, typ, hunger, health, fun, lost_fun, gain_hunger, time)
         self.type = "Eagle"
 
     def mk_hungry(self):
@@ -148,8 +153,8 @@ class Eagle(Pet):
 
 
 class Panther(Pet):
-    def __init__(self, name, health, hunger, fun, time):
-        super().__init__(name, health, hunger, fun, time)
+    def __init__(self, name, typ, hunger, health, fun, lost_fun, gain_hunger, time):
+        super().__init__(name, typ, hunger, health, fun, lost_fun, gain_hunger, time)
         self.type = "Panther"
 
     def mk_hungry(self):

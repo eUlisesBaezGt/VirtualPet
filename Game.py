@@ -1,2 +1,2 @@
-def game():
+def game(pet):
     pass
