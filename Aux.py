@@ -101,9 +101,11 @@ class Aux:
             print(Colors.Bold + Colors.Green + "Your horse is ready!" + Colors.ResetAll)
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
             typ = ""
-            hunger = randint(50, 75)
-            health = randint(25, 50)
-            fun = randint(25, 50)
+
+            health = randint(75, 100)
+            hunger = randint(0, 25)
+            fun = randint(75, 100)
+
             lost_fun = 0
             gain_hunger = 0
             tem = t
@@ -114,9 +116,11 @@ class Aux:
             print(Colors.Bold + Colors.Green + "Your eagle is ready!" + Colors.ResetAll)
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
             typ = ""
-            hunger = randint(50, 75)
-            health = randint(25, 50)
-            fun = randint(25, 50)
+
+            health = randint(50, 75)
+            hunger = randint(25, 50)
+            fun = randint(50, 75)
+
             lost_fun = 0
             gain_hunger = 0
             tem = t
@@ -127,9 +131,11 @@ class Aux:
             print(Colors.Bold + Colors.Green + "Your panther is ready!" + Colors.ResetAll)
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your animal's name: ")
             typ = ""
-            hunger = randint(50, 75)
+
             health = randint(25, 50)
+            hunger = randint(50, 75)
             fun = randint(25, 50)
+
             lost_fun = 0
             gain_hunger = 0
             tem = t
@@ -303,7 +309,6 @@ class Aux:
 
     @staticmethod
     def new_game():
-        Aux.save()
         g_p = Aux.hatch()
         game(g_p)
 

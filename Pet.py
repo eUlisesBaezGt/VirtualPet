@@ -141,9 +141,9 @@ class Eagle(Pet):
 
     def mk_hungry(self):
         mk_hungryth = th.Timer(1, self.mk_hungry)
+        mk_hungryth.start()
         self.hunger += 3
         self.health -= (self.health - 1 / 6 * self.hunger)
-        mk_hungryth.start()
 
     def mk_fun(self):
         mk_funth = th.Timer(1, self.mk_fun)
