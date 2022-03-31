@@ -129,7 +129,7 @@ def game(pet):
             save()
             break
 
-        if pet.hunger <= 0:
+        if pet.hunger >= 100:
             print(Colors.Bold + Colors.Red + "Your pet has died!" + Colors.ResetAll)
             save()
             break
@@ -142,25 +142,6 @@ def game(pet):
         if pet.health == 100 and pet.hunger == 100 and pet.fun == 100:
             print(Colors.Bold + Colors.Green + "Congratulations! You have a perfect pet!" + Colors.ResetAll)
             break
-
-
-def get_slot(slot):
-    if slot == 1:
-        return slot1
-    elif slot == 2:
-        return slot2
-    elif slot == 3:
-        return slot3
-    elif slot == 4:
-        return slot4
-    elif slot == 5:
-        return slot5
-    elif slot == 6:
-        return slot6
-    else:
-        return print(
-            Colors.Bold + Colors.Underlined + Colors.Red + "Invalid slot number, please try again"
-            + Colors.ResetAll)
 
 
 def save():
