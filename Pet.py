@@ -5,8 +5,9 @@ mk_funth = None
 
 
 def stop_threads():
-    if mk_hungryth is not None and mk_funth is not None:
+    if mk_hungryth is not None:
         mk_hungryth.stop()
+    if mk_hungryth is not None:
         mk_funth.stop()
 
 

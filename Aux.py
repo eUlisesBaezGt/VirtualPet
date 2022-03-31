@@ -1,4 +1,3 @@
-from Game import game
 from Pet import *
 import time
 
@@ -6,68 +5,70 @@ from Colors import *
 import json
 from random import randint
 
-slot1 = {
-    "name": "",
-    "type": "",
-    "hunger": 0,
-    "health": 0,
-    "fun": 0,
-    "lost_fun": 0,
-    "gain_hunger": 0
-}
 
-slot2 = {
-    "name": "",
-    "type": "",
-    "hunger": 0,
-    "health": 0,
-    "fun": 0,
-    "lost_fun": 0,
-    "gain_hunger": 0
-}
+class Slots:
+    pet = Pet("", "", 0, 0, 0, 0, 0, 0)
+    t = 0
 
-slot3 = {
-    "name": "",
-    "type": "",
-    "hunger": 0,
-    "health": 0,
-    "fun": 0,
-    "lost_fun": 0,
-    "gain_hunger": 0
-}
+    slot1 = {
+        "name": "",
+        "type": "",
+        "hunger": 0,
+        "health": 0,
+        "fun": 0,
+        "lost_fun": 0,
+        "gain_hunger": 0
+    }
 
-slot4 = {
-    "name": "",
-    "type": "",
-    "hunger": 0,
-    "health": 0,
-    "fun": 0,
-    "lost_fun": 0,
-    "gain_hunger": 0
-}
+    slot2 = {
+        "name": "",
+        "type": "",
+        "hunger": 0,
+        "health": 0,
+        "fun": 0,
+        "lost_fun": 0,
+        "gain_hunger": 0
+    }
 
-slot5 = {
-    "name": "",
-    "type": "",
-    "hunger": 0,
-    "health": 0,
-    "fun": 0,
-    "lost_fun": 0,
-    "gain_hunger": 0
-}
+    slot3 = {
+        "name": "",
+        "type": "",
+        "hunger": 0,
+        "health": 0,
+        "fun": 0,
+        "lost_fun": 0,
+        "gain_hunger": 0
+    }
 
-slot6 = {
-    "name": "",
-    "type": "",
-    "hunger": 0,
-    "health": 0,
-    "fun": 0,
-    "lost_fun": 0,
-    "gain_hunger": 0
-}
+    slot4 = {
+        "name": "",
+        "type": "",
+        "hunger": 0,
+        "health": 0,
+        "fun": 0,
+        "lost_fun": 0,
+        "gain_hunger": 0
+    }
 
-pet = Pet("", "", 0, 0, 0, 0, 0, 0)
-t = 0
+    slot5 = {
+        "name": "",
+        "type": "",
+        "hunger": 0,
+        "health": 0,
+        "fun": 0,
+        "lost_fun": 0,
+        "gain_hunger": 0
+    }
+
+    slot6 = {
+        "name": "",
+        "type": "",
+        "hunger": 0,
+        "health": 0,
+        "fun": 0,
+        "lost_fun": 0,
+        "gain_hunger": 0
+    }
 
 
 class Aux:
@@ -310,12 +311,12 @@ class Aux:
     @staticmethod
     def new_game():
         g_p = Aux.hatch()
-        game(g_p)
+        Aux.game(g_p)
 
     @staticmethod
     def continue_game():
         global pet
-        game(pet)
+        Aux.game(pet)
 
     @staticmethod
     def load_game():
@@ -330,7 +331,7 @@ class Aux:
                 pet = Pet(slot1["name"], slot1["type"], slot1["hunger"], slot1["health"], slot1["fun"],
                           slot1["lost_fun"],
                           slot1["gain_hunger"], slot1["time"])
-                game(pet)
+                Aux.game(pet)
 
         elif r == 2:
             with open('slot2.json', 'r') as file:
@@ -338,7 +339,7 @@ class Aux:
                 pet = Pet(slot2["name"], slot2["type"], slot2["hunger"], slot2["health"], slot2["fun"],
                           slot2["lost_fun"],
                           slot2["gain_hunger"], slot2["time"])
-                game(pet)
+                Aux.game(pet)
 
         elif r == 3:
             with open('slot3.json', 'r') as file:
@@ -346,7 +347,7 @@ class Aux:
                 pet = Pet(slot3["name"], slot3["type"], slot3["hunger"], slot3["health"], slot3["fun"],
                           slot3["lost_fun"],
                           slot3["gain_hunger"], slot3["time"])
-                game(pet)
+                Aux.game(pet)
 
         elif r == 4:
             with open('slot4.json', 'r') as file:
@@ -354,7 +355,7 @@ class Aux:
                 pet = Pet(slot4["name"], slot4["type"], slot4["hunger"], slot4["health"], slot4["fun"],
                           slot4["lost_fun"],
                           slot4["gain_hunger"], slot4["time"])
-                game(pet)
+                Aux.game(pet)
 
         elif r == 5:
             with open('slot5.json', 'r') as file:
@@ -362,7 +363,7 @@ class Aux:
                 pet = Pet(slot5["name"], slot5["type"], slot5["hunger"], slot5["health"], slot5["fun"],
                           slot5["lost_fun"],
                           slot5["gain_hunger"], slot5["time"])
-                game(pet)
+                Aux.game(pet)
 
         elif r == 6:
             with open('slot6.json', 'r') as file:
@@ -370,7 +371,7 @@ class Aux:
                 pet = Pet(slot6["name"], slot6["type"], slot6["hunger"], slot6["health"], slot6["fun"],
                           slot6["lost_fun"],
                           slot6["gain_hunger"], slot6["time"])
-                game(pet)
+                Aux.game(pet)
 
         else:
             print(
@@ -386,3 +387,63 @@ class Aux:
         print(Colors.ResetAll)
         slot = Aux.get_slot(r)
         Aux.slots(slot)
+
+    @staticmethod
+    def game(pet):
+        print(Colors.Bold + Colors.Blue + "Welcome to the game!" + Colors.ResetAll)
+        print(
+            Colors.Bold + Colors.Blue + "You have a pet named " + Colors.ResetAll + Colors.Bold + Colors.Green + pet.name + Colors.ResetAll + Colors.Bold + Colors.Blue + "." + Colors.ResetAll)
+        pet.mk_fun()
+        pet.mk_hungry()
+        choice = ""
+
+        while choice != "4":
+            if pet.health <= 0 or pet.hunger >= 100 or pet.fun <= 0:
+                print(Colors.Bold + Colors.Red + "Your pet has died!" + Colors.ResetAll)
+                Aux.save()
+                break
+
+            if pet.health == 100 and pet.hunger == 100 and pet.fun == 100:
+                print(Colors.Bold + Colors.Green + "Congratulations! You have a perfect pet!" + Colors.ResetAll)
+                Aux.save()
+                break
+
+            print(Colors.Bold + Colors.Blue + "You have " + Colors.ResetAll + Colors.Bold + Colors.Green + str(
+                pet.health) + Colors.ResetAll + Colors.Bold + Colors.Blue + " health points." + Colors.ResetAll)
+            print(Colors.Bold + Colors.Blue + "You have " + Colors.ResetAll + Colors.Bold + Colors.Green + str(
+                pet.hunger) + Colors.ResetAll + Colors.Bold + Colors.Blue + " hunger points." + Colors.ResetAll)
+            print(Colors.Bold + Colors.Blue + "You have " + Colors.ResetAll + Colors.Bold + Colors.Green + str(
+                pet.fun) + Colors.ResetAll + Colors.Bold + Colors.Blue + " fun points." + Colors.ResetAll)
+
+            print(Colors.Bold + Colors.Blue + "GAME STARTED!" + Colors.ResetAll)
+
+            print("\n\n")
+
+            print(Colors.Bold + Colors.Underlined + "What would you like to do?" + Colors.ResetAll)
+            print(Colors.Bold + Colors.Green + "1. Feed your pet" + Colors.ResetAll)
+            print(Colors.Bold + Colors.Blue + "2. Play with your pet" + Colors.ResetAll)
+            print(Colors.Bold + Colors.Magenta + "3. Visit Vet" + Colors.ResetAll)
+            print(Colors.Bold + Colors.Yellow + "4. Exit" + Colors.ResetAll)
+
+            choice = input(Colors.Bold + Colors.Blue + "Enter your choice: " + Colors.ResetAll)
+
+            if choice == "1":
+                pet.feed()
+
+            elif choice == "2":
+                pet.play()
+
+            elif choice == "3":
+                pet.vet()
+
+            elif choice == "4":
+                stop_threads()
+                print(Colors.Bold + Colors.Blue + "Goodbye!" + Colors.ResetAll)
+                Aux.save()
+                break
+
+            else:
+                print(Colors.Bold + Colors.Red + "Invalid choice!" + Colors.ResetAll)
+                continue
+
+            print("\n\n")
