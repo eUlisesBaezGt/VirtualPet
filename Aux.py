@@ -1,24 +1,40 @@
-import option as option
 from Pet import *
 import time
 from Colors import *
-import json
+# import json
 from random import randint
+
+pet = Pet("", "", 0, 0, 0, 0, 0, 0)
+
+mk_hungryth = None
+mk_funth = None
+
+
+def start_threads():
+    global pet
+    pet.mk_fun()
+    pet.mk_hungry()
+
+
+def stop_threads():
+    if mk_hungryth is not None:
+        mk_hungryth.stop()
+    if mk_hungryth is not None:
+        mk_funth.stop()
 
 
 class Aux:
-    pet = Pet()
 
-    def __init__(self, pet):
-        self.pet = pet
+    def __init__(self, p):
+        self.pet = p
 
     @staticmethod
     def print_hatch(time_hatch):
-        print(Colors.Bold + Colors.Green + "Your egg will hatch in {time_hatch} seconds!" + Colors.ResetAll)
+        print(Colors.Bold + Colors.Green + "Your egg will hatch in {} seconds!".format(time_hatch) + Colors.ResetAll)
         for i in range(time_hatch):
             print("\n")
             print(
-                Colors.Bold + Colors.Green + "Your egg is hatching! {time_hatch - i} seconds left!....." +
+                Colors.Bold + Colors.Green + "Your egg is hatching! {} seconds left!.....".format(time_hatch - i) +
                 Colors.ResetAll)
             time.sleep(1)
 
@@ -41,7 +57,7 @@ class Aux:
             print(Colors.Bold + Colors.Green + "Your horse has hatched!\n" + Colors.ResetAll)
 
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your horse's name: " + Colors.ResetAll)
-            type = "Horse"
+            typ = "Horse"
 
             health = randint(75, 100)
             hunger = randint(0, 25)
@@ -50,14 +66,14 @@ class Aux:
             lost_fun = 0
             gain_hunger = 0
 
-            pet = Horse(name, type, hunger, health, fun, lost_fun, gain_hunger, time_hatch)
+            pet = Horse(name, typ, hunger, health, fun, lost_fun, gain_hunger, time_hatch)
 
         elif animal == 2:
             Aux.print_hatch(time_hatch)
             print(Colors.Bold + Colors.Green + "Your eagle has hatched!\n" + Colors.ResetAll)
 
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your eagle's name: " + Colors.ResetAll)
-            type = "Eagle"
+            typ = "Eagle"
 
             health = randint(50, 75)
             hunger = randint(25, 50)
@@ -66,14 +82,14 @@ class Aux:
             lost_fun = 0
             gain_hunger = 0
 
-            pet = Eagle(name, type, hunger, health, fun, lost_fun, gain_hunger, time_hatch)
+            pet = Eagle(name, typ, hunger, health, fun, lost_fun, gain_hunger, time_hatch)
 
         elif animal == 3:
             Aux.print_hatch(time_hatch)
             print(Colors.Bold + Colors.Green + "Your panther has hatched!\n" + Colors.ResetAll)
 
             name = input(Colors.Bold + Colors.Blue + Colors.Underlined + "Your panther's name: " + Colors.ResetAll)
-            type = "Panther"
+            typ = "Panther"
 
             health = randint(25, 50)
             hunger = randint(50, 75)
@@ -82,12 +98,13 @@ class Aux:
             lost_fun = 0
             gain_hunger = 0
 
-            pet = Panther(name, type, hunger, health, fun, lost_fun, gain_hunger, time_hatch)
+            pet = Panther(name, typ, hunger, health, fun, lost_fun, gain_hunger, time_hatch)
 
         return pet
 
     @staticmethod
     def menu():
+        global pet
         print("\n")
         option = ""
 
@@ -121,7 +138,12 @@ class Aux:
 
             elif option == "C":
                 print("Continue game")
-                Aux.continue_game()
+                if pet.name == "":
+                    print("You don't have a pet!")
+                    print("")
+                    time.sleep(2)
+                else:
+                    Aux.continue_game()
 
             elif option == "L":
                 print("Load game")
@@ -143,6 +165,7 @@ class Aux:
 
     @staticmethod
     def new_game():
+        global pet
         pet = Aux.hatch()
         Aux.game(pet)
 
@@ -158,8 +181,7 @@ class Aux:
             Colors.Bold + Colors.Blue + "You have a pet named " + Colors.ResetAll + Colors.Bold + Colors.Green +
             pet.name + Colors.ResetAll + Colors.Bold + Colors.Blue + "." + Colors.ResetAll)
 
-        pet.mk_fun()
-        pet.mk_hungry()
+        start_threads()
 
         choice = ""
 
@@ -173,7 +195,8 @@ class Aux:
 
             if pet.health == 100 and pet.hunger == 100 and pet.fun == 100:
                 print(
-                    Colors.Bold + Colors.Green + Colors.Underlined + "Congratulations! You have a perfect pet!" + Colors.ResetAll)
+                    Colors.Bold + Colors.Green + Colors.Underlined + "Congratulations! You have a perfect pet!"
+                    + Colors.ResetAll)
                 Aux.save()
                 break
 
