@@ -1,26 +1,76 @@
 from Pet import *
 import time
 from Colors import *
-# import json
+from pathlib import Path
+import json
 from random import randint
 
 pet = Pet("", "", 0, 0, 0, 0, 0, 0)
 
-mk_hungryth = None
-mk_funth = None
+slot = {
+    "name": "",
+    "type": "",
+    "hunger": 0,
+    "health": 0,
+    "fun": 0,
+    "lost_fun": 0,
+    "gain_hunger": 0,
+    "time_hatch": 0,
+}
 
+path1 = Path("./SLOT1.json")
+if path1.stat().st_size == 0:  # True if empty
 
-def start_threads():
-    global pet
-    pet.mk_fun()
-    pet.mk_hungry()
+    with open('SLOT1.json', 'w') as slot1:
+        slot1.write("")
 
+else:
+    pass
 
-def stop_threads():
-    if mk_hungryth is not None:
-        mk_hungryth.stop()
-    if mk_hungryth is not None:
-        mk_funth.stop()
+path2 = Path("./SLOT2.json")
+if path2.stat().st_size == 0:  # True if empty
+
+    with open('SLOT2.json', 'w') as slot2:
+        slot2.write("")
+
+else:
+    pass
+
+path3 = Path("./SLOT3.json")
+if path3.stat().st_size == 0:  # True if empty
+
+    with open('SLOT3.json', 'w') as slot3:
+        slot3.write("")
+
+else:
+    pass
+
+path4 = Path("./SLOT4.json")
+if path4.stat().st_size == 0:  # True if empty
+
+    with open('SLOT4.json', 'w') as slot4:
+        slot4.write("")
+
+else:
+    pass
+
+path5 = Path("./SLOT5.json")
+if path5.stat().st_size == 0:  # True if empty
+
+    with open('SLOT5.json', 'w') as slot5:
+        slot5.write("")
+
+else:
+    pass
+
+path6 = Path("./SLOT6.json")
+if path6.stat().st_size == 0:  # True if empty
+
+    with open('SLOT6.json', 'w') as slot6:
+        slot6.write("")
+
+else:
+    pass
 
 
 class Aux:
@@ -119,15 +169,15 @@ class Aux:
 
             print("""
                 N) New game
-    
+
                 C) Continue game 
-    
+
                 L) Load game
-    
+
                 S) Save game
-    
+
                 Q) Exit
-    
+
                 """)
 
             option = input(Colors.Bold + Colors.Underlined + Colors.Green + "Choose an option: " + Colors.ResetAll)
@@ -151,12 +201,16 @@ class Aux:
 
             elif option == "S":
                 print("Save game")
-                Aux.save()
+                if pet.name == "":
+                    print("You don't have a pet!")
+                    print("")
+                    time.sleep(2)
+                else:
+                    Aux.save()
 
             elif option == "Q":
                 print("Exit")
-                stop_threads()
-                Aux.save()
+                pet.stop_threads()
                 exit()
 
             else:
@@ -167,21 +221,217 @@ class Aux:
     def new_game():
         global pet
         pet = Aux.hatch()
-        Aux.game(pet)
+        Aux.game()
 
     @staticmethod
     def continue_game():
         global pet
-        Aux.game(pet)
+        Aux.game()
 
     @staticmethod
-    def game(pet):
+    def load_game():
+        global pet
+        opt = 0
+
+        print("Loading game...\n"
+              "Slots:\n"
+              "1) Slot 1\n"
+              "2) Slot 2\n"
+              "3) Slot 3\n"
+              "4) Slot 4\n"
+              "5) Slot 5\n"
+              "6) Slot 6\n")
+
+        while opt < 1 or opt > 6:
+
+            opt = int(input("Select the slot where you want to load: "))
+
+            if opt == 1:
+
+                if path1.stat().st_size == 0:
+                    print(Colors.Red + Colors.Bold + "Nothing saved here! " + Colors.ResetAll)
+
+                else:
+
+                    with open('SLOT1.json') as file:
+                        object = json.load(file)
+                        file.close()
+
+                    pet.name = object["name"]
+                    pet.type = object["type"]
+                    pet.hunger = object["hunger"]
+                    pet.health = object["health"]
+                    pet.fun = object["fun"]
+                    pet.lost_fun = object["lost_fun"]
+                    pet.gain_hunger = object["gain_hunger"]
+                    pet.time_hatch = object["time_hatch"]
+
+                    Aux.game()
+
+            elif opt == 2:
+                if path2.stat().st_size == 0:
+                    print(Colors.Red + Colors.Bold + "Nothing saved here! " + Colors.ResetAll)
+
+                else:
+
+                    with open('SLOT2.json') as file:
+                        object = json.load(file)
+                        file.close()
+
+                    pet.name = object["name"]
+                    pet.type = object["type"]
+                    pet.hunger = object["hunger"]
+                    pet.health = object["health"]
+                    pet.fun = object["fun"]
+                    pet.lost_fun = object["lost_fun"]
+                    pet.gain_hunger = object["gain_hunger"]
+                    pet.time_hatch = object["time_hatch"]
+
+                    Aux.game()
+
+            elif opt == 3:
+                if path3.stat().st_size == 0:
+                    print(Colors.Red + Colors.Bold + "Nothing saved here! " + Colors.ResetAll)
+
+                else:
+
+                    with open('SLOT3.json') as file:
+                        object = json.load(file)
+                        file.close()
+
+                    pet.name = object["name"]
+                    pet.type = object["type"]
+                    pet.hunger = object["hunger"]
+                    pet.health = object["health"]
+                    pet.fun = object["fun"]
+                    pet.lost_fun = object["lost_fun"]
+                    pet.gain_hunger = object["gain_hunger"]
+                    pet.time_hatch = object["time_hatch"]
+
+                    Aux.game()
+
+            elif opt == 4:
+                if path4.stat().st_size == 0:
+                    print(Colors.Red + Colors.Bold + "Nothing saved here! " + Colors.ResetAll)
+
+                else:
+
+                    with open('SLOT4.json') as file:
+                        object = json.load(file)
+                        file.close()
+
+                    pet.name = object["name"]
+                    pet.type = object["type"]
+                    pet.hunger = object["hunger"]
+                    pet.health = object["health"]
+                    pet.fun = object["fun"]
+                    pet.lost_fun = object["lost_fun"]
+                    pet.gain_hunger = object["gain_hunger"]
+                    pet.time_hatch = object["time_hatch"]
+
+                    Aux.game()
+
+            elif opt == 5:
+                if path5.stat().st_size == 0:
+                    print(Colors.Red + Colors.Bold + "Nothing saved here! " + Colors.ResetAll)
+
+                else:
+
+                    with open('SLOT5.json') as file:
+                        object = json.load(file)
+                        file.close()
+
+                    pet.name = object["name"]
+                    pet.type = object["type"]
+                    pet.hunger = object["hunger"]
+                    pet.health = object["health"]
+                    pet.fun = object["fun"]
+                    pet.lost_fun = object["lost_fun"]
+                    pet.gain_hunger = object["gain_hunger"]
+                    pet.time_hatch = object["time_hatch"]
+
+                    Aux.game()
+
+            elif opt == 6:
+                if path6.stat().st_size == 0:
+                    print(Colors.Red + Colors.Bold + "Nothing saved here! " + Colors.ResetAll)
+
+                else:
+
+                    with open('SLOT6.json') as file:
+                        object = json.load(file)
+                        file.close()
+
+                    pet.name = object["name"]
+                    pet.type = object["type"]
+                    pet.hunger = object["hunger"]
+                    pet.health = object["health"]
+                    pet.fun = object["fun"]
+                    pet.lost_fun = object["lost_fun"]
+                    pet.gain_hunger = object["gain_hunger"]
+                    pet.time_hatch = object["time_hatch"]
+
+                    Aux.game()
+
+    @staticmethod
+    def save():
+        opt = 0
+
+        slot["name"] = pet.name
+        slot["type"] = pet.type
+        slot["hunger"] = pet.hunger
+        slot["health"] = pet.health
+        slot["fun"] = pet.fun
+        slot["lost_fun"] = pet.lost_fun
+        slot["gain_hunger"] = pet.gain_hunger
+        slot["time_hatch"] = pet.time_hatch
+
+        print("Saving game...\n"
+              "Slots:\n"
+              "1) Slot 1\n"
+              "2) Slot 2\n"
+              "3) Slot 3\n"
+              "4) Slot 4\n"
+              "5) Slot 5\n"
+              "6) Slot 6\n")
+
+        while opt < 1 or opt > 6:
+
+            opt = int(input("Select the slot where you want to save the game"))
+
+            if opt == 1:
+                with open('SLOT1.json', 'w') as file:
+                    json.dump(slot, file)
+
+            elif opt == 2:
+                with open('SLOT2.json', 'w') as file:
+                    json.dump(slot, file)
+
+            elif opt == 3:
+                with open('SLOT3.json', 'w') as file:
+                    json.dump(slot, file)
+
+            elif opt == 4:
+                with open('SLOT4.json', 'w') as file:
+                    json.dump(slot, file)
+
+            elif opt == 5:
+                with open('SLOT5.json', 'w') as file:
+                    json.dump(slot, file)
+
+            elif opt == 6:
+                with open('SLOT6.json', 'w') as file:
+                    json.dump(slot, file)
+
+    @staticmethod
+    def game():
+        global pet
         print(Colors.Bold + Colors.Blue + "Welcome to the game!" + Colors.ResetAll)
         print(
             Colors.Bold + Colors.Blue + "You have a pet named " + Colors.ResetAll + Colors.Bold + Colors.Green +
             pet.name + Colors.ResetAll + Colors.Bold + Colors.Blue + "." + Colors.ResetAll)
 
-        start_threads()
+        pet.start_threads()
 
         choice = ""
 
@@ -227,7 +477,7 @@ class Aux:
                 pet.vet()
 
             elif choice == "4":
-                stop_threads()
+                pet.stop_threads()
                 print(Colors.Bold + Colors.Blue + "Returning to Main Menu......." + Colors.ResetAll)
                 Aux.save()
                 break

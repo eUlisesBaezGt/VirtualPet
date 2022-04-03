@@ -12,6 +12,9 @@ class Pet:
     __lost_fun = 0
     __gain_hunger = 0
 
+    mk_hungry_th = None
+    mk_fun_th = None
+
     def __init__(self, name, typ, hunger, health, fun, lost_fun, gain_hunger, time):
         self._name = name
         self.type = typ
@@ -102,20 +105,30 @@ class Horse(Pet):
         self.type = "Horse"
 
     def mk_hungry(self):
-        global mk_hungryth
-        mk_hungryth = th.Timer(1, self.mk_hungry)
+        self.mk_hungry_th = th.Timer(1, self.mk_hungry)
+
         self.hunger += 1
-        self.health -= (self.health - 1 / 8 * self.hunger)
+        self.health = (self.health - 1 / 8 * self.hunger)
         self.gain_hunger += 1
-        mk_hungryth.start()
+        self.mk_hungry_th.start()
 
     def mk_fun(self):
-        global mk_funth
-        mk_funth = th.Timer(1, self.mk_fun)
+        self.mk_fun_th = th.Timer(1, self.mk_fun)
+
         self.fun -= 1
         self.health -= (1 / 8 * (100 - self.fun))
         self.lost_fun += 1
-        mk_funth.start()
+        self.mk_fun_th.start()
+
+    def start_threads(self):
+        self.mk_fun()
+        self.mk_hungry()
+
+    def stop_threads(self):
+        if self.mk_hungry_th is not None:
+            self.mk_hungry_th.cancel()
+        if self.mk_hungry_th is not None:
+            self.mk_fun_th.cancel()
 
 
 class Eagle(Pet):
@@ -124,39 +137,59 @@ class Eagle(Pet):
         self.type = "Eagle"
 
     def mk_hungry(self):
-        global mk_hungryth
-        mk_hungryth = th.Timer(1, self.mk_hungry)
+        self.mk_hungry_th = th.Timer(1, self.mk_hungry)
+
         self.hunger += 3
-        self.health -= (self.health - 1 / 6 * self.hunger)
+        self.health = (self.health - 1 / 6 * self.hunger)
         self.gain_hunger += 3
-        mk_hungryth.start()
+        self.mk_hungry_th.start()
 
     def mk_fun(self):
-        global mk_funth
-        mk_funth = th.Timer(1, self.mk_fun)
+        self.mk_fun_th = th.Timer(1, self.mk_fun)
+
         self.fun -= 3
         self.health -= (1 / 6 * (100 - self.fun))
         self.lost_fun += 3
-        mk_funth.start()
+        self.mk_fun_th.start()
+
+    def start_threads(self):
+        self.mk_fun()
+        self.mk_hungry()
+
+    def stop_threads(self):
+        if self.mk_hungry_th is not None:
+            self.mk_hungry_th.cancel()
+        if self.mk_hungry_th is not None:
+            self.mk_fun_th.cancel()
 
 
 class Panther(Pet):
     def __init__(self, name, typ, hunger, health, fun, lost_fun, gain_hunger, time):
         super().__init__(name, typ, hunger, health, fun, lost_fun, gain_hunger, time)
         self.type = "Panther"
-
+        
     def mk_hungry(self):
-        global mk_hungryth
-        mk_hungryth = th.Timer(1, self.mk_hungry)
+        self.mk_hungry_th = th.Timer(1, self.mk_hungry)
+
         self.hunger += 5
-        self.health -= (self.health - 1 / 4 * self.hunger)
+        self.health = (self.health - 1 / 4 * self.hunger)
         self.gain_hunger += 5
-        mk_hungryth.start()
+        self.mk_hungry_th.start()
 
     def mk_fun(self):
-        global mk_funth
-        mk_funth = th.Timer(1, self.mk_fun)
+        self.mk_fun_th = th.Timer(1, self.mk_fun)
+
         self.fun -= 5
         self.health -= (1 / 4 * (100 - self.fun))
         self.lost_fun += 5
-        mk_funth.start()
+        self.mk_fun_th.start()
+
+    def start_threads(self):
+        self.mk_fun()
+        self.mk_hungry()
+
+    def stop_threads(self):
+        if self.mk_hungry_th is not None:
+            self.mk_hungry_th.cancel()
+        if self.mk_hungry_th is not None:
+            self.mk_fun_th.cancel()
