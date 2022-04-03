@@ -201,11 +201,11 @@ class Aux:
                 break
 
             print(Colors.Bold + Colors.Blue + "You have " + Colors.ResetAll + Colors.Bold + Colors.Green + str(
-                pet.health) + Colors.ResetAll + Colors.Bold + Colors.Blue + " health points." + Colors.ResetAll)
+                pet.health) + Colors.ResetAll + Colors.Bold + Colors.Blue + " health points. 🫀" + Colors.ResetAll)
             print(Colors.Bold + Colors.Blue + "You have " + Colors.ResetAll + Colors.Bold + Colors.Green + str(
-                pet.hunger) + Colors.ResetAll + Colors.Bold + Colors.Blue + " hunger points." + Colors.ResetAll)
+                pet.hunger) + Colors.ResetAll + Colors.Bold + Colors.Blue + " hunger points. 🍕" + Colors.ResetAll)
             print(Colors.Bold + Colors.Blue + "You have " + Colors.ResetAll + Colors.Bold + Colors.Green + str(
-                pet.fun) + Colors.ResetAll + Colors.Bold + Colors.Blue + " fun points." + Colors.ResetAll)
+                pet.fun) + Colors.ResetAll + Colors.Bold + Colors.Blue + " fun points. 😄 " + Colors.ResetAll)
 
             print("\n")
 
