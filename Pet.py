@@ -98,6 +98,11 @@ class Pet:
     def play(self):
         self.fun += 5
 
+    def start_threads(self):
+        print("Starting threads...")
+
+    def stop_threads(self):
+        print("Stopping threads...")
 
 class Horse(Pet):
     def __init__(self, name, typ, hunger, health, fun, lost_fun, gain_hunger, time):
